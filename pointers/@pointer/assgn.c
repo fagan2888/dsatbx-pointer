@@ -12,7 +12,7 @@ void mexFunction(int nOut, mxArray *pOut[],
   mxArray *address, *data,*s;
   char *field_name;
   int len, field_number;
-  pOut[0] = pIn[0];
+  pOut[0] = (mxArray *) pIn[0];
   address = GetPointerData(pOut[0]);
   data = GetPointerData(address);
 
@@ -32,7 +32,7 @@ void mexFunction(int nOut, mxArray *pOut[],
      mxDestroyArray(s); 
   }
   else
-  //if(field_number==-1)     
+  /* if(field_number==-1)     */
   {
     mxAddField(data, field_name);
     field_number = mxGetFieldNumber(data, field_name);

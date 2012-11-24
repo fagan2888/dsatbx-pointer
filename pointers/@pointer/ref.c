@@ -8,18 +8,20 @@ void mexFunction(int nOut, mxArray *pOut[],
   mxArray *address, *data;
   char *field_name;
   int field_number;
-
-  // assert(nOut == 2)
-  // assert(nIn == 2)
+  
+  /*
+  assert(nOut == 2)
+  assert(nIn == 2)
+  */
 
   address = GetPointerData(pIn[0]);
   data = GetPointerData(address);
 
   if (!data)
   {
-     //mexErrMsgTxt("Pointer is NULL");
-     pOut[0] = mxCreateScalarDouble(0);
-     pOut[1] = mxCreateScalarDouble(0);
+     /* mexErrMsgTxt("Pointer is NULL"); */
+     pOut[0] = mxCreateDoubleScalar(0);
+     pOut[1] = mxCreateDoubleScalar(0);
   }
   else
   {
@@ -28,14 +30,14 @@ void mexFunction(int nOut, mxArray *pOut[],
     field_number = mxGetFieldNumber(data, field_name);
     if (field_number == -1)
     {
-      //mexErrMsgTxt("Reference to non-existent field");
-      pOut[0] = mxCreateScalarDouble(-1);
-      pOut[1] = mxCreateScalarDouble(-1);
+      /* mexErrMsgTxt("Reference to non-existent field"); */
+      pOut[0] = mxCreateDoubleScalar(-1);
+      pOut[1] = mxCreateDoubleScalar(-1);
     }
     else
     {
       pOut[0] = mxGetFieldByNumber(data, 0, field_number);
-      pOut[1] = mxCreateScalarDouble(1);
+      pOut[1] = mxCreateDoubleScalar(1);
     }
     mxFree(field_name);
   }

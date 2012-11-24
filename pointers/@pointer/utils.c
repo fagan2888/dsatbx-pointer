@@ -1,5 +1,6 @@
 #include "mex.h"
 #include "utils.h"
+#include <string.h> /* needed for memcpy */
 
 mxArray* RegisterObject(mxArray *strct, const char *obj_name)
 {
@@ -9,12 +10,14 @@ mxArray* RegisterObject(mxArray *strct, const char *obj_name)
   In[1] = mxCreateString(obj_name);
 
   mexCallMATLAB(1, Out, 2, In, "class");
-
-//  In[0] = mxCreateString("struct");
-//  mexCallMATLAB(0, NULL, 1, In, "inferiorto");  // inferiorto struct
   
-return Out[0];
-//return strct;
+  /*
+  In[0] = mxCreateString("struct");
+  mexCallMATLAB(0, NULL, 1, In, "inferiorto");  // inferiorto struct
+  */
+  
+  return Out[0];
+  /* return strct; */
 }
 
 mxArray* CreateObject(int m, int n, int nfields, const char *field_names[], const char *obj_name)
@@ -23,9 +26,11 @@ mxArray* CreateObject(int m, int n, int nfields, const char *field_names[], cons
 
   strct = mxCreateStructMatrix(m, n, nfields, field_names);
 
-  //mxSetClassName(strct, obj_name);
+  /*
+  mxSetClassName(strct, obj_name);
 
-  //return strct;
+  return strct;
+  */
 
   return RegisterObject(strct, obj_name);
 }
